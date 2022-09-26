@@ -1,62 +1,23 @@
-from products import products
-from flask import Flask, jsonify, request
-
-app = Flask(__name__)
-
-
-@app.route('/products')
-def getProducts():
-    return jsonify(products)
+# Importing the necessary modules and libraries
+from flask import Flask
+# from flask_migrate import Migrate
+from routes.blueprint import blueprint
+# from models.machine import db
 
 
-@app.route('/products/<string:product_name>', methods=['GET'])
-def getProduct(product_name):
-    productsFound = [
-        product for product in products if product["name"] == product_name]
-    return jsonify({"product": productsFound})
+def create_app():
+    app = Flask(__name__)  # flask app object
+    app.config.from_object('config')  # Configuring from Python Files
+
+    # db.init_app(app)  # Initializing the database
+    return app
 
 
-@app.route('/products', methods=['POST'])
-def addProduct():
-    new_product = {
-        "name": request.json["name"],
-        "price": request.json["price"],
-        "quantity": request.json["quantity"]
-    }
-
-    products.append(new_product)
-
-    return jsonify({"message": "Product Added Successfully", "products": products})
+app = create_app()  # Creating the app
+# Registering the blueprint
+app.register_blueprint(blueprint, url_prefix='/')
+# migrate = Migrate(app, db)  # Initializing the migration
 
 
-@app.route("/products/<string:product_name>", methods=["PUT"])
-def editProduct(product_name):
-    productFound = [
-        product for product in products if product["name"] == product_name]
-
-    if (len(productFound) > 0):
-        productFound[0]['name'] = request.json('name')
-        productFound[0]['price'] = request.json('price')
-        productFound[0]['quantity'] = request.json('quantity')
-        return jsonify({
-            "message": "Product Updated",
-            "product": productFound[0]
-        })
-
-    return jsonify({"message": "Product Not found"})
-
-
-@app.route('/products/<string:product_name>', methods=['DELETE'])
-def deleteProduct(product_name):
-    productsFound = [
-        product for product in products if product["name"] == product_name]
-    if len(productsFound) > 0:
-        products.remove(productsFound)
-        return jsonify({
-            "message": "Product Deleted",
-            "products": products
-        })
-
-
-if __name__ == '__main__':
-    app.run(debug=True, port=4000)
+if __name__ == '__main__':  # Running the app
+    app.run(host='127.0.0.1', port=5000, debug=True)
