@@ -1,14 +1,6 @@
 import cv2
 import mediapipe as mp
 
-# Creamos nuestra funcion de dibujo
-mpDibujo = mp.solutions.drawing_utils
-ConfDibu = mpDibujo.DrawingSpec(thickness=1, circle_radius=1)
-
-# Creamos un objeto donde almacenaremos la malla facial
-mpMallaFacial = mp.solutions.face_mesh
-MallaFacial = mpMallaFacial.FaceMesh(max_num_faces=1)
-
 # Realizamos la Videocaptura
 cap = cv2.VideoCapture(0)
 
@@ -16,6 +8,14 @@ cap = cv2.VideoCapture(0)
 
 
 def malla_facial():
+    # Creamos nuestra funcion de dibujo
+    mpDibujo = mp.solutions.drawing_utils
+    ConfDibu = mpDibujo.DrawingSpec(thickness=1, circle_radius=1)
+
+    # Creamos un objeto donde almacenaremos la malla facial
+    mpMallaFacial = mp.solutions.face_mesh
+    MallaFacial = mpMallaFacial.FaceMesh(max_num_faces=1)
+
     # Empezamos
     while True:
         # Leemos la VideoCaptura
