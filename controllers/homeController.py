@@ -9,10 +9,10 @@ def index():
     return render_template('Index.html')
 
 
-def video():
-    # return Response(malla_facial(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    return Response(deteccion_manos(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    # return Response(deteccion_manos(), mimetype='application/json')
+# def video():
+#     # return Response(malla_facial(), mimetype='multipart/x-mixed-replace; boundary=frame')
+#     return Response(deteccion_manos(), mimetype='multipart/x-mixed-replace; boundary=frame')
+#     # return Response(deteccion_manos(), mimetype='application/json')
 
 
 def create():

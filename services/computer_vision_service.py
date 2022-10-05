@@ -4,7 +4,7 @@ from flask import redirect
 
 # Realizamos la Videocaptura
 # cap = cv2.VideoCapture(0)
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+# cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 # Mostramos el video en RT
 
 
@@ -57,7 +57,7 @@ def deteccion_manos():
 
     with mp_hands.Hands(
             static_image_mode=False,
-            max_num_hands=2,
+            max_num_hands=1,
             min_detection_confidence=0.5) as hands:
         while True:
             ret, frame = cap.read()

@@ -6,7 +6,9 @@ from routes.blueprint import blueprint
 
 
 def create_app():
-    app = Flask(__name__, template_folder="views")  # flask app object
+    app = Flask(__name__,
+                static_url_path="/static",
+                template_folder="views")  # flask app object
     app.config.from_object('config')  # Configuring from Python Files
 
     # db.init_app(app)  # Initializing the database
